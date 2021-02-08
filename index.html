@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script
+      src="https://kit.fontawesome.com/2adeb4644b.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"
+    />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+
+    <title>BrainsterLabs</title>
+  </head>
+
+  <body>
+    <div class="container-fluid bg-yellow">
+      <nav
+        id="navbar"
+        class="navbar navbar-expand-lg navbar-light pad-l-5 shadow-nav height-100"
+      >
+        <a
+          class="navbar-brand text-uppercase font9 fw-bold qwidth"
+          href="index.html"
+          ><img src="images\Logo.png" alt="logo" class="logo" />
+          <p class="card-text text-uppercase font9 fw-bold">brainster</p></a
+        >
+        <button
+          class="navbar-toggler mar-r-5"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <i id="navbar-toggle-icon" class="bi bi-list white"></i>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mb-2 mb-lg-0 m-auto">
+            <li class="nav-item">
+              <a
+                class="nav-link active text-center fw-bold white text-left"
+                aria-current="page"
+                href="https://marketpreneurs.brainster.co"
+                >Академија за маркетинг</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link active text-center fw-bold white text-left"
+                aria-current="page"
+                href="https://codepreneurs.brainster.co"
+                >Академија за програмирање</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link active text-center fw-bold white text-left"
+                aria-current="page"
+                href="https://datascience.brainster.co"
+                >Академија за data science</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link active text-center fw-bold white text-left"
+                aria-current="page"
+                href="https://design.brainster.co"
+                >Академија за дизајн</a
+              >
+            </li>
+          </ul>
+
+          <form class="form-inline mar-r-5">
+            <a
+              href="employment.html"
+              class="btn btn-danger text-light qbutton font10"
+              type="submit"
+              >Вработи наш студент</a
+            >
+          </form>
+        </div>
+      </nav>
+    </div>
+
+    
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
+      crossorigin="anonymous"
+    ></script>
+
+    <script>
+      document
+        .querySelector(".navbar-toggler")
+        .addEventListener("click", toggleLogo);
+      function toggleLogo() {
+        var logoVisibility = document.querySelector(".navbar-brand").style
+          .visibility;
+        if (logoVisibility == "visible" || logoVisibility == "") {
+          document.querySelector(".navbar-brand").style.visibility = "hidden";
+        } else {
+          document.querySelector(".navbar-brand").style.visibility = "visible";
+        }
+        document
+          .querySelector("#navbar-toggle-icon")
+          .classList.toggle("bi-list");
+        document.querySelector("#navbar-toggle-icon").classList.toggle("bi-x");
+        document.querySelector("#navbar").classList.toggle("nav-shown");
+      }
+    </script>
+
+    <script>
+      document
+        .querySelector("#programming")
+        .addEventListener("change", showProgramming);
+      document
+        .querySelector("#marketing")
+        .addEventListener("change", showMarketing);
+      document.querySelector("#design").addEventListener("change", showDesign);
+
+      function showProgramming() {
+        hideAll();
+        document.querySelector("#marketing").checked = false;
+        document.querySelector("#design").checked = false;
+        if (document.querySelector("#programming").checked) {
+          document
+            .querySelector("#filter-programming")
+            .classList.add("checked");
+          document
+            .querySelector("#filter-marketing")
+            .classList.remove("checked");
+          document.querySelector("#filter-design").classList.remove("checked");
+          var programmingCards = document.querySelectorAll(".programming");
+          for (var i = 0; i < programmingCards.length; i++) {
+            programmingCards[i].style.display = "inline-block";
+          }
+        } else {
+          document
+            .querySelector("#filter-programming")
+            .classList.remove("checked");
+          showAll();
+        }
+      }
+
+      function showMarketing() {
+        hideAll();
+        document.querySelector("#programming").checked = false;
+        document.querySelector("#design").checked = false;
+        if (document.querySelector("#marketing").checked) {
+          document.querySelector("#filter-marketing").classList.add("checked");
+          document
+            .querySelector("#filter-programming")
+            .classList.remove("checked");
+          document.querySelector("#filter-design").classList.remove("checked");
+          var marketingCards = document.querySelectorAll(".marketing");
+          for (var i = 0; i < marketingCards.length; i++) {
+            marketingCards[i].style.display = "inline-block";
+          }
+        } else {
+          document
+            .querySelector("#filter-marketing")
+            .classList.remove("checked");
+          showAll();
+        }
+      }
+      function showDesign() {
+        hideAll();
+        document.querySelector("#marketing").checked = false;
+        document.querySelector("#programming").checked = false;
+        if (document.querySelector("#design").checked) {
+          document.querySelector("#filter-design").classList.add("checked");
+          document
+            .querySelector("#filter-programming")
+            .classList.remove("checked");
+          document
+            .querySelector("#filter-marketing")
+            .classList.remove("checked");
+          var designCards = document.querySelectorAll(".design");
+          for (var i = 0; i < designCards.length; i++) {
+            designCards[i].style.display = "inline-block";
+          }
+        } else {
+          document.querySelector("#filter-design").classList.remove("checked");
+          showAll();
+        }
+      }
+      function hideAll() {
+        var cards1 = document.querySelectorAll(".card1");
+        for (var i = 0; i < cards1.length; i++) {
+          cards1[i].style.display = "none";
+        }
+      }
+      function showAll() {
+        var cards1 = document.querySelectorAll(".card1");
+        for (var i = 0; i < cards1.length; i++) {
+          cards1[i].style.display = "inline-block";
+        }
+      }
+    </script>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
