@@ -11,8 +11,10 @@
     <title>CovidTracker</title>
   </head>
   <body>
-    
+<?php
 
+require_once ("connect.php"); 
+?>
   
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid">
