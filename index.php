@@ -52,24 +52,19 @@ JOIN countries ON last_two_days_data.country_id = countries.id";
 $stmt = $db->query($sql);
 $stmt1 = $db->query($sql);
 ?>
-
 <!doctype html>
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css">
     <script src="https://kit.fontawesome.com/2adeb4644b.js" crossorigin="anonymous"></script>
-
     <title>Project02</title>
 </head>
 
 <body>
-
     <div class="container-fluid">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
@@ -87,34 +82,28 @@ $stmt1 = $db->query($sql);
                         </li>
                     </ul>
                     <form class="d-flex">
-
-                        <button type="button" id="syncdata" class="btn  text-dark fw-bold  me-5   border border-dark border-2 shadow">Sync
+                        <button type="button" id="syncdata" class="btn  text-dark fw-bold  me-5  border border-dark">Sync
                             Data</button>
-
                     </form>
                 </div>
             </div>
         </nav>
-
         <div class="bg-img"></div>
         <div class="row mx-5">
-
-
             <div class="col-md-10 offset-md-1">
                 <form method="post">
                     <div class="row">
-                        <div class="col-md-4 text-center d-grid gap-2"><input id="dailyAll" class="btn btn-danger" type="submit" name="dailyAll" value="Daily cases" /></div>
-                        <div class="col-md-4 text-center d-grid gap-2"><input id="monthlyAll" class="btn btn-danger" type="submit" name="monthlyAll" value="Monthly cases" /></div>
-                        <div class="col-md-4 text-center d-grid gap-2"><input id="90dayAll" class="btn btn-danger" type="submit" name="90dayAll" value="Last three months cases" /></div>
+                        <div class="col-md-4 text-center d-grid gap-2"><input id="dailyAll" class="btn btn-danger my-2" type="submit" name="dailyAll" value="Daily cases" /></div>
+                        <div class="col-md-4 text-center d-grid gap-2"><input id="monthlyAll" class="btn btn-danger my-2" type="submit" name="monthlyAll" value="Monthly cases" /></div>
+                        <div class="col-md-4 text-center d-grid gap-2"><input id="90dayAll" class="btn btn-danger my-2" type="submit" name="90dayAll" value="Last three months cases" /></div>
                     </div>
                 </form>
-
                 <?php
-                if (isset($_POST['dailyAll'])) {
+                if ((isset($_POST['dailyAll'])) || (!isset($_POST['dailyAll']) && !isset($_POST['monthlyAll']) && !isset($_POST['90dayAll']))) {
                     $sqlToday = "SELECT * 
-FROM ( SELECT *, (ROW_NUMBER() OVER (PARTITION BY country_id ORDER BY date DESC)) as row_num FROM cases ) partitioned_table 
-INNER JOIN countries ON countries.id = partitioned_table.country_id
-WHERE partitioned_table.row_num = 1";
+                    FROM ( SELECT *, (ROW_NUMBER() OVER (PARTITION BY country_id ORDER BY date DESC)) as row_num FROM cases ) partitioned_table 
+                    INNER JOIN countries ON countries.id = partitioned_table.country_id
+                    WHERE partitioned_table.row_num = 1";
                     $stmt5 = $db->query($sqlToday);
                     if ($stmt5->rowCount()) {
                         $dataToday = $stmt5->fetch();
@@ -123,13 +112,13 @@ WHERE partitioned_table.row_num = 1";
                         $stmtSum = $db->query($sql);
                         while ($country = $stmtSum->fetch()) {
                             echo "  <h2 class='text-center mt-3'>Confirmed:</h2>";
-                            echo "<h3  class='text-center text-info font-weight-bold'>" . number_format($country['sum(confirmed)']) . "</h3 >";
+                            echo "<h3  class='text-center text-muted font-weight-bold'>" . number_format($country['sum(confirmed)']) . "</h3 >";
                             echo "<h2 class='text-center'>Deaths:</h2>";
-                            echo "<h3  class='text-center text-secondary font-weight-bold'>" . number_format($country['sum(deaths)']) . " </h3 >";
+                            echo "<h3  class='text-center text-muted font-weight-bold'>" . number_format($country['sum(deaths)']) . " </h3 >";
                             echo "<h2  class='text-center'>Recovered:</h2>";
-                            echo "<h3  class='text-center text-success font-weight-bold'>" . number_format($country['sum(recovered)']) . "</h3 >";
+                            echo "<h3  class='text-center text-muted font-weight-bold'>" . number_format($country['sum(recovered)']) . "</h3 >";
                             echo "<h2  class='text-center'>Active:</h2>";
-                            echo "<h3  class='text-center text-danger font-weight-bold'>" . number_format($country['sum(active)']) . "</h3 >";
+                            echo "<h3  class='text-center text-muted font-weight-bold'>" . number_format($country['sum(active)']) . "</h3 >";
                         }
                     }
                 }
@@ -142,10 +131,8 @@ WHERE partitioned_table.row_num = 1";
 FROM ( SELECT *, (ROW_NUMBER() OVER (PARTITION BY country_id ORDER BY date DESC)) as row_num FROM cases ) partitioned_table 
 INNER JOIN countries ON countries.id = partitioned_table.country_id
 WHERE partitioned_table.row_num = 30";
-
                     $stmt5 = $db->query($sqlToday);
                     $stmtLast = $db->query($sqlLastMonth);
-
                     if ($stmt5->rowCount()) {
                         $dataToday = $stmt5->fetch();
                         $date = $dataToday['Date'];
@@ -158,13 +145,13 @@ WHERE partitioned_table.row_num = 30";
                     $stmtSum = $db->query($sql);
                     while ($country = $stmtSum->fetch()) {
                         echo "  <h2 class='text-center mt-3'>Confirmed:</h2>";
-                        echo "<h3  class='text-center text-info font-weight-bold'>" . number_format($country['sum(confirmed)']) . "</h3 >";
+                        echo "<h3  class='text-center text-muted font-weight-bold'>" . number_format($country['sum(confirmed)']) . "</h3 >";
                         echo "<h2 class='text-center'>Deaths:</h2>";
-                        echo "<h3  class='text-center text-secondary font-weight-bold'>" . number_format($country['sum(deaths)']) . " </h3 >";
+                        echo "<h3  class='text-center text-muted font-weight-bold'>" . number_format($country['sum(deaths)']) . " </h3 >";
                         echo "<h2  class='text-center'>Recovered:</h2>";
-                        echo "<h3  class='text-center text-success font-weight-bold'>" . number_format($country['sum(recovered)']) . "</h3 >";
+                        echo "<h3  class='text-center text-muted font-weight-bold'>" . number_format($country['sum(recovered)']) . "</h3 >";
                         echo "<h2  class='text-center'>Active:</h2>";
-                        echo "<h3  class='text-center text-danger font-weight-bold'>" . number_format($country['sum(active)']) . "</h3 >";
+                        echo "<h3  class='text-center text-muted font-weight-bold'>" . number_format($country['sum(active)']) . "</h3 >";
                     }
                 }
                 if (isset($_POST['90dayAll'])) {
@@ -193,13 +180,13 @@ WHERE partitioned_table.row_num = 30";
                     $stmtSum = $db->query($sql);
                     while ($country = $stmtSum->fetch()) {
                         echo "  <h2 class='text-center mt-3'>Confirmed:</h2>";
-                        echo "<h3  class='text-center text-info font-weight-bold'>" . number_format($country['sum(confirmed)']) . "</h3 >";
+                        echo "<h3  class='text-center text-muted font-weight-bold'>" . number_format($country['sum(confirmed)']) . "</h3 >";
                         echo "<h2 class='text-center'>Deaths:</h2>";
-                        echo "<h3  class='text-center text-secondary font-weight-bold'>" . number_format($country['sum(deaths)']) . " </h3 >";
+                        echo "<h3  class='text-center text-muted font-weight-bold'>" . number_format($country['sum(deaths)']) . " </h3 >";
                         echo "<h2  class='text-center'>Recovered:</h2>";
-                        echo "<h3  class='text-center text-success font-weight-bold'>" . number_format($country['sum(recovered)']) . "</h3 >";
+                        echo "<h3  class='text-center text-muted font-weight-bold'>" . number_format($country['sum(recovered)']) . "</h3 >";
                         echo "<h2  class='text-center'>Active:</h2>";
-                        echo "<h3  class='text-center text-danger font-weight-bold'>" . number_format($country['sum(active)']) . "</h3 >";
+                        echo "<h3  class='text-center text-muted font-weight-bold'>" . number_format($country['sum(active)']) . "</h3 >";
                     }
                 }
                 ?>
@@ -208,7 +195,6 @@ WHERE partitioned_table.row_num = 30";
     </div>
     <br>
     </div>
-
     <?php
     set_time_limit(500);
     try {
@@ -219,22 +205,19 @@ WHERE partitioned_table.row_num = 30";
     $query = $db->query("SELECT Country FROM countries ");
     $rowCount = $query->rowCount();
     ?>
-
     <div class="row pt-5">
         <div class="col-md-10 offset-md-2">
-
             <form method="post">
                 <div class="row">
                     <div class="col-md-2 text-center d-grid gap-2"><input class="btn btn-dark" type="submit" name="daily" value="Daily cases" /></div>
                     <div class="col-md-2 text-center d-grid gap-2"><input class="btn btn-dark" type="submit" name="monthly" value="Monthly cases" /></div>
-                    <div class="col-md-2 text-center d-grid gap-2"><input class="btn btn-dark" type="submit" name="quartely" value="Quartely cases" /></div>
+                    <div class="col-md-2 text-center d-grid gap-2"><input class="btn btn-dark" type="submit" name="90Days" value="Last three months cases" /></div>
                     <div class="col-md-2 text-center d-grid gap-2"><input list="country" id="search" placeholder="Select Country...">
-                        <datalist class="p-2 shadow rounded btn-primary fw-bold" name="country" id="country">
-
+                        <datalist class="p-2 shadow rounded btn-muted fw-bold" name="country" id="country">
                             <?php
                             if ($rowCount > 0) {
                                 while ($row = $query->fetch()) {
-                                    echo '<option class="fw-bold ' . $row['Country'] . '" value="' . $row['Country'] . '">' . $row['Country'] . '</option>';
+                                    echo '<option id =" ' . $row['Slug'] .  '"' . ' class="fw-bold ' . $row['Country'] . '" value="' . $row['Country'] . '">' . $row['Country'] . '</option>';
                                 }
                             } else {
                                 echo '<option value="">Country not available</option>';
@@ -258,7 +241,6 @@ WHERE partitioned_table.row_num = 30";
             <th>New recovered</th>
         </tr>
         <?php
-
         while ($country = $stmt->fetch()) {
             $todayConfirmed = $country['today_confirmed'];
             $todayActive = $country['today_active'];
@@ -292,7 +274,6 @@ WHERE partitioned_table.row_num = 30";
         </tr>";
             }
         }
-
         $sqlToday = "SELECT * 
     FROM ( SELECT *, (ROW_NUMBER() OVER (PARTITION BY country_id ORDER BY date DESC)) as row_num FROM cases ) partitioned_table 
     INNER JOIN countries ON countries.id = partitioned_table.country_id
@@ -341,7 +322,6 @@ WHERE partitioned_table.row_num = 30";
           </tr>";
             }
         }
-
         $sqlToday = "SELECT * 
        FROM ( SELECT *, (ROW_NUMBER() OVER (PARTITION BY country_id ORDER BY date DESC)) as row_num FROM cases ) partitioned_table 
        INNER JOIN countries ON countries.id = partitioned_table.country_id
@@ -392,25 +372,21 @@ WHERE partitioned_table.row_num = 30";
         }
         ?>
     </table>
-
     </div>
     </div>
     <div class="row ">
         <div class="col-12 pt-2">
             <div class="py-1">
-                <h5 class="text-dark  fw-bold text-shadow1 text-center ">Covid Tracker <i class=" px-3 fas fa-viruses"></i>
-                </h5>
+                <h5 class="text-dark  fw-bold text-shadow1 text-center">Covid Tracker</h5>
             </div>
         </div>
     </div>
     </div>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous">
     </script>
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <script src="sum.js"></script>
     <script src="./monthly.js"></script>
-
 </body>
 
 </html>

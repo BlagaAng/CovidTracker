@@ -4,9 +4,6 @@ CREATE TABLE countries (
     Slug VARCHAR (64), 
     ISO2 VARCHAR (32)  
 )
-
-
-
 CREATE TABLE cases(
 id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     confirmed  INT UNSIGNED,
@@ -19,7 +16,6 @@ id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     `Date` DATETIME,
     `country_id` INT UNSIGNED,
     CONSTRAINT FOREIGN KEY (country_id) REFERENCES countries(id)
-    
 );
 
 

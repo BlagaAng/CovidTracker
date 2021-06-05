@@ -1,10 +1,10 @@
-$(function () {
+/* $(function () {
 
     $("#syncdata").click(() => {
         $.ajax({
-            method: "POST",
-            url: "syncData.php"
+           // method: "POST",
+        // url: "syncData.php"
         })
             .done(() => { });
     });
-});
+}); */

@@ -1,5 +1,5 @@
 <?php
-function syncData()
+/* function syncData()
 {
     try {
         $options = array(
@@ -28,16 +28,13 @@ function syncData()
 
         $sqlA = "INSERT INTO `cases` (`country_id`, `active`, `deaths`, `recovered`, `confirmed`, date)
         VALUES (:country_id, :active, :deaths, :recovered, :confirmed, :date)";
-
         $stmtInsertCases = $db->prepare($sqlA);
-
         $stmtInsertCases->bindParam('country_id', $countryId);
         $stmtInsertCases->bindParam('active', $active);
         $stmtInsertCases->bindParam('recovered', $recovered);
         $stmtInsertCases->bindParam('deaths', $deaths);
         $stmtInsertCases->bindParam('confirmed', $confirmed);
         $stmtInsertCases->bindParam('date', $date);
-
         foreach ($data1 as $case) {
             $active = $case['Active'];
             $recovered = $case['Recovered'];
@@ -45,13 +42,11 @@ function syncData()
             $confirmed = $case['Confirmed'];
             $date = date("Y-m-d", strtotime($case['Date']));
             $countryId = $country['id'];
-
-
             $stmtInsertCases->execute();
         }
     }
 }
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     syncData();
 }
+ */
