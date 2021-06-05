@@ -21,3 +21,5 @@ id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     CONSTRAINT FOREIGN KEY (country_id) REFERENCES countries(id)
     
 );
+
+

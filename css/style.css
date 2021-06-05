@@ -3,7 +3,7 @@ body {
     padding: 0;
 }
 
-.bg-image {
+.bg-img {
     background-image: url(../images/covid-19-1330px-2.jpg);
     height: 50vh;
     background-position: center; 
