@@ -73,15 +73,7 @@ $stmt1 = $db->query($sql);
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link disabled active" href="#" tabindex="-1" aria-disabled="true">Covid data by Country</a>
-                        </li>
-                    </ul>
-                    <form class="d-flex">
+                    <form class="ms-auto">
                         <button type="button" id="syncdata" class="btn  text-dark fw-bold  me-5  border border-dark">Sync
                             Data</button>
                     </form>
