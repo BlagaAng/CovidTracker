@@ -1,2 +1,0 @@
-# Projects_wd2
-
